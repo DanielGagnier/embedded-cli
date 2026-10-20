@@ -1,0 +1,13 @@
+# Compiled executables
+embedded-cli
+
+# Object files
+*.o
+
+# Debugging files
+*.out
+*.dSYM/
+
+# Editor and temporary files
+*~
+*.swp
