@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "cli.h"
+#include "led.h"
 
 static void helpOption(void);
 static void ledonOption(void);
@@ -24,8 +25,6 @@ static const char * const VALID_COMMANDS[] = {
 	"status"
 };
 
-static int led = 0;
-
 void handleCommand(char user_cmd[]) {
 	if(strcmp(user_cmd, "help") == 0) {
 		helpOption();
@@ -43,17 +42,17 @@ static void helpOption(void) {
 }
 
 static void ledonOption(void) {
+		led_on();
 		printf("LED is ON\n");
-		led = 1;
 }
 
 static void ledoffOption(void) {
+		led_off();
 		printf("LED is OFF\n");
-		led = 0;
 }
 
 static void statusOption(void) {
-		if(led == 0) {
+		if(led_get_state() == 0) {
 			printf("Status of LED is Off\n");
 		} else {
 			printf("Status of LED is On\n");
