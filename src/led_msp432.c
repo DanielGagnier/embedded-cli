@@ -7,18 +7,12 @@ static int initialized = 0;
 
 static void led_init(void)
 {
-    /* Select GPIO functionality for P1.0 */
-    P1SEL0 &= ~LED_PIN;
-    P1SEL1 &= ~LED_PIN;
+    P1->SEL0 &= (uint8_t)~LED_PIN;
+    P1->SEL1 &= (uint8_t)~LED_PIN;
 
-    /* Configure P1.0 as an output */
-    P1DIR |= LED_PIN;
+    P1->DIR |= LED_PIN;
 
-    /* Start with the LED off */
-    P1OUT &= ~LED_PIN;
-
-    /* Enable GPIO pins on the MSP432 */
-    PM5CTL0 &= ~LOCKLPM5;
+    P1->OUT &= (uint8_t)~LED_PIN;
 
     initialized = 1;
 }
@@ -29,7 +23,7 @@ void led_on(void)
         led_init();
     }
 
-    P1OUT |= LED_PIN;
+    P1->OUT |= LED_PIN;
 }
 
 void led_off(void)
@@ -38,7 +32,7 @@ void led_off(void)
         led_init();
     }
 
-    P1OUT &= ~LED_PIN;
+    P1->OUT &= (uint8_t)~LED_PIN;
 }
 
 int led_get_state(void)
@@ -47,5 +41,5 @@ int led_get_state(void)
         led_init();
     }
 
-    return (P1OUT & LED_PIN) ? 1 : 0;
+    return (P1->OUT & LED_PIN) ? 1 : 0;
 }
